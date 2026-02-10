@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Journée de Sensibilisation et Dépistage</title>
+  <style>
+    :root {
+      --sadiab-blue: #0b6fbf;
+      --sadiab-green: #3aa14a;
+      --sadiab-dark: #0f172a;
+      --sadiab-red: #e11d48;
+      --bg: #f8fafc;
+      --glass: rgba(255, 255, 255, 0.95);
+      --shadow-sm: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--sadiab-dark);
+      line-height: 1.6;
+    }
+
+    /* Arrière-plan décoratif scientifique */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 10% 20%, rgba(11,111,191,0.03) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(58,161,74,0.03) 0%, transparent 40%);
+      z-index: -1;
+    }
+
+    .wrap { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+
+    /* Header / Hero Section */
+    .hero {
+      background: white;
+      border-radius: 24px;
+      padding: 40px;
+      display: flex;
+      gap: 40px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid #e2e8f0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left { flex: 1; z-index: 1; }
+
+    .logos { display: flex; gap: 20px; align-items: center; margin-bottom: 30px; }
+    .logos img { height: 80px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05)); }
+
+    .badge-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fee2e2;
+      color: var(--sadiab-red);
+      padding: 4px 12px;
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .title {
+      font-size: 36px;
+      font-weight: 800;
+      margin: 0;
+      background: linear-gradient(to right, var(--sadiab-blue), var(--sadiab-green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+    }
+
+    .subtitle { color: #64748b; font-size: 1.2rem; margin: 15px 0 25px 0; }
+
+    /* Stats / Countdown */
+    .countdown { display: flex; gap: 15px; }
+    .digit {
+      background: #f1f5f9;
+      padding: 15px;
+      border-radius: 16px;
+      min-width: 85px;
+      text-align: center;
+    }
+    .num { font-size: 28px; font-weight: 800; color: var(--sadiab-blue); display: block; }
+    .label { font-size: 10px; text-transform: uppercase; color: #64748b; font-weight: 700; }
+
+    /* QR Cards */
+    .hero-right { width: 350px; display: flex; flex-direction: column; gap: 20px; }
+    .card-qr {
+      background: #f8fafc;
+      padding: 20px;
+      border-radius: 20px;
+      border: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transition: 0.3s;
+    }
+    .card-qr:hover { border-color: var(--sadiab-blue); transform: scale(1.02); }
+    .card-qr img { width: 100px; height: 100px; border-radius: 12px; background: white; padding: 5px; }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      transition: 0.3s;
+      text-align: center;
+    }
+    .btn-blue { background: var(--sadiab-blue); color: white; }
+    .btn-outline { border: 2px solid var(--sadiab-green); color: var(--sadiab-green); }
+    .btn:hover { opacity: 0.8; }
+
+    /* Main Grid */
+    main { display: grid; grid-template-columns: 1fr 380px; gap: 30px; margin-top: 40px; }
+
+    .panel { background: white; border-radius: 24px; padding: 35px; box-shadow: var(--shadow-sm); border: 1px solid #e2e8f0; }
+
+    /* Timeline Programme */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .section-title h2 { margin: 0; font-size: 24px; }
+    .tag-red { background: var(--sadiab-red); color: white; padding: 4px 12px; border-radius: 6px; font-size: 12px; }
+
+    .schedule-table { width: 100%; border-collapse: collapse; }
+    .schedule-table tr td { padding: 20px 15px; border-bottom: 1px solid #f1f5f9; }
+    .time { font-weight: 800; color: var(--sadiab-blue); font-size: 15px; white-space: nowrap; width: 120px; }
+    .activity-title { font-weight: 700; font-size: 16px; margin-bottom: 4px; display: block; }
+    .speaker { color: var(--sadiab-green); font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 5px; }
+    .speaker::before { content: "👨‍⚕️"; }
+
+    /* Side Panel Actions */
+    .action-card {
+      background: linear-gradient(135deg, var(--sadiab-blue) 0%, var(--sadiab-dark) 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 24px;
+      margin-bottom: 25px;
+    }
+
+    .info-list { list-style: none; padding: 0; margin: 20px 0; }
+    .info-list li { margin-bottom: 12px; font-size: 14px; display: flex; gap: 10px; }
+
+    footer { text-align: center; padding: 40px; color: #94a3b8; font-size: 14px; }
+
+    @media (max-width: 1024px) {
+      main { grid-template-columns: 1fr; }
+      .hero { flex-direction: column; }
+      .hero-right { width: 100%; flex-direction: row; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="hero-left">
+      <div class="logos">
+        <img src="../img/Logos/LOGO SADIAB1a.png" alt="SADIAB" />
+        <img src="../img/Logos/LOGO ADWG1.png" alt="ADWG" />
+      </div>
+      
+      <div class="badge-live">● ACTION SANTÉ PUBLIQUE</div>
+      <h1 class="title">Journée de Dépistage & Sensibilisation</h1>
+      <h1 class="title">يوم الفحص و التوعية</h1>
+      <p class="subtitle">Agir ensemble pour un jeûne en toute sécurité. Education sanitaire et dépistage citoyen ciblé.</p>
+      <p class="subtitle">العمل معًا من أجل صيام آمن. التوعية الطبية والفحص الموجه للمواطنين.</p>
+      <div class="countdown" id="timer">
+        <div class="digit"><span class="num" id="d">--</span><span class="label">Jours</span></div>
+        <div class="digit"><span class="num" id="h">--</span><span class="label">Heures</span></div>
+        <div class="digit"><span class="num" id="m">--</span><span class="label">Min</span></div>
+        <div class="digit"><span class="num" id="s">--</span><span class="label">Sec</span></div>
+      </div>
+    </div>
+
+    <aside class="hero-right">
+      <div class="card-qr">
+        <img src="../QRCode/QR Code Diabète et Ramadan_Pré_inscription.png" alt="QR" />
+        <div>
+          <strong style="display:block; margin-bottom:10px;">تسجيل مجاني</strong>
+          <a href="https://forms.office.com/r/153agPhJLg" class="btn btn-blue">سجل</a>
+        </div>
+      </div>
+      <div class="card-qr">
+        <img src="../QRCode/Program DIABRAM.jpg" alt="G:\Diabete et Ramadan\QRCode\Program DIABRAM.jpg" />
+        <div>
+          <strong style="display:block; margin-bottom:10px;">Programme Complet</strong>
+          <a href="../html/Poster Depistage Arabe Francais .html" class="btn btn-outline">Télécharger</a>
+        </div>
+      </div>
+    </aside>
+  </header>
+
+  <main>
+    <section class="panel" id="programme">
+      <div class="section-title">
+        <h2>Déroulement de la Journée</h2>
+        <span class="tag-red">Direct : Dimanche 15 Février</span>
+        <span class="tag-red">مباشر: الأحد 15 فبراير</span>
+    
+    </div>
+
+      <table class="schedule-table">
+        <tbody>
+          <tr>
+            <td class="time">08:30 - 10:00</td>
+            <td>
+              <span class="activity-title" style="color:var(--sadiab-red)">🔬 OPÉRATION DÉPISTAGE CIBLÉ</span>
+                <span class="activity-title" style="color:var(--sadiab-red)">🔬 عملية الفحص الموجه</span>
+              <p style="margin:5px 0; font-size:14px;">Ouvert au public : Tests glycémiques, tension et conseils personnalisés pour les populations à risque.</p>
+                <p style="margin:5px 0; font-size:14px;">مفتوح للجميع: اختبارات سكر الدم، ضغط الدم، ونصائح مخصصة للفئات المعرضة للخطر.</p>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" style="background:#f8fafc; padding:10px 20px; font-weight:800; font-size:13px; color:var(--sadiab-blue)">VOLET SCIENTIFIQUE & SENSIBILISATION</td>
+          </tr>
+          <tr>
+            <td class="time">10:00 - 10:30</td>
+            <td>
+              <span class="activity-title">Conférence religieuse :</span>
+              <span class="activity-title"> : محاضرة فقهية </span>
+              <span class="speaker">المرشدة  </span>
+            </td>
+          </tr><tr>
+            <td class="time">10:00 - 10:30</td>
+            <td>
+              <span class="activity-title">Puis-je jeûner pendant le Ramadan?</span>
+              <span class="activity-title"> : هل يمكنني الصوم خلال رمضان؟</span>
+              <span class="speaker">Dr Alileche</span>
+                <span class="speaker">د. عليليش</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="time">10:30 - 11:00</td>
+            <td>
+              <span class="activity-title">Quelles précautions prendre durant le jeûne</span>
+                <span class="activity-title">ما هي الاحتياطات الواجب اتخاذها أثناء الصيام</span>
+              <span class="speaker">Dr Mers</span>
+              <span class="speaker">د. مرس</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="time">11:15 - 11:45</td>
+            <td>
+              <span class="activity-title">Faut-il adapter mon traitement anti-diabétique si je vais jeûner pendant le Ramadan</span>
+                <span class="activity-title">هل يجب تعديل علاجي المضاد للسكري إذا كنت سأصوم خلال رمضان</span>
+              <span class="speaker">Pr Mahgoun</span>
+                <span class="speaker">الاستاذة محقون</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="time">11:45 - 12:00</td>
+            <td>
+              <span class="activity-title">Quand et comment: dois-je manger et dois-je pratiquer une activité physique pendant le Ramadan</span>
+                <span class="activity-title">متى وكيف: يجب أن أتناول الطعام و يجب أن أمارس نشاطًا بدنيًا أثناء رمضان</span>
+             <span class="speaker">Pr Mahgoun</span>
+                <span class="speaker">الاستاذة محقون</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="time">12:00 - 13:00</td>
+            <td>
+              <span class="activity-title" style="color:var(--sadiab-green)">💡 ATELIERS: QUESTIONS/RÉPONSES</span>
+                <span class="activity-title" style="color:var(--sadiab-green)">💡 ورشات عمل: أسئلة وأجوبة</span>
+              <p style="margin:5px 0; font-size:14px;">Échanges directs entre les experts et les citoyens dépistés durant la matinée.</p>
+                  <p style="margin:5px 0; font-size:14px;">تبادل مباشر بين الخبراء والمواطنين الذين تم فحصهم خلال الصباح.</p>   
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <aside>
+      <div class="action-card">
+        <h3>Informations Clés</h3>
+        <ul class="info-list">
+          <li>📍 <strong>Lieu :</strong> BIBLIOTHEQUE de LECTURE PUBLIQUE, Ghardaïa</li>
+          <li>📍 <strong>Lieu :</strong> مكتبة المطالعة العمومية، غرداية</li>
+          <li>📅 <strong>Date :</strong> 15 Février 2026</li>
+          <li>📅 <strong>التاريخ :</strong> 15 فبراير 2026</li>
+          <li>🎯 <strong>Public :</strong> Professionnels & Citoyens</li>
+          <li>🎯 <strong>الجمهور :</strong> المواطنين و الأخصائين</li>
+          <li>🧪 <strong>Dépistage :</strong> Gratuit sur place</li>
+            <li>🧪 <strong>الفحص :</strong> مجاني في الموقع</li>
+        </ul>
+        <a href="mailto:diabete.et.ramadan@gmail.com" class="btn btn-blue" style="background:white; color:var(--sadiab-blue); width:100%">Contacter l'organisateur</a>
+      </div>
+
+      <div class="panel" style="padding:20px;">
+        <h4 style="margin-top:0;">Dimanche 15 Février</h4>
+        <h4 style="margin-top:0;">الاحد 15 فبراير</h4>
+        <p style="font-size:13px; color:#64748b;">
+          <strong>Ateliers Pratiques :</strong><br>
+          <strong>ورشات عملية :</strong><br>
+          Rendez-vous à la Bibliothèque de lecture publique à Bouhraoua pour des démonstrations sur l'insulinothérapie et les nouvelles technologies.
+            <strong>موعدنا في مكتبة المطالعة العمومية ببوهراوة لعرض عملي حول العلاج بالأنسولين والتقنيات الحديثة.</strong>
+        </p>
+      </div>
+    </aside>
+  </main>
+
+  <footer>
+    © 2026 SADIAB & ADWG — "Pour un jeûn serein et une prise en charge innovante".
+
+
+  </footer>
+</div>
+
+<script>
+  // Simple Countdown Logic
+  const target = new Date('2026-02-14T08:30:00');
+  function update() {
+    const now = new Date();
+    const diff = target - now;
+    if (diff > 0) {
+      document.getElementById('d').innerText = Math.floor(diff / (1000*60*60*24));
+      document.getElementById('h').innerText = Math.floor((diff / (1000*60*60)) % 24);
+      document.getElementById('m').innerText = Math.floor((diff / (1000*60)) % 60);
+      document.getElementById('s').innerText = Math.floor((diff / 1000) % 60);
+    }
+  }
+  setInterval(update, 1000);
+  update();
+</script>
+
+</body>
+</html>
