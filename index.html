@@ -192,6 +192,47 @@ DFCX <!doctype html>
     }
 
     footer { margin-top: 50px; text-align: center; color: var(--muted); padding: 30px; border-top: 1px solid #e2e8f0; font-size: 14px; }
+    /* Container */
+.logo-bar {
+  width: 100%;
+  overflow: hidden;
+  background: f0f7ff;
+  padding: 20px 10px;
+  position: relative;
+}
+
+/* Moving Track */
+.logo-track {
+  display: flex;
+  width: fit-content;
+  animation: scroll 25s linear infinite;
+}
+
+/* Each Logo */
+.logo-track img {
+  height: 60px;
+  margin: 0px 40px;
+  transition: transform 0.3s;
+}
+
+.logo-track img:hover {
+  transform: scale(1.1);
+}
+
+/* Pause on hover */
+.logo-bar:hover .logo-track {
+  animation-play-state: paused;
+}
+
+/* Animation */
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
 
     /* Mobile adjustments */
     @media (max-width: 1024px) {
@@ -207,6 +248,11 @@ DFCX <!doctype html>
       display: block;
       margin-top: 10px;
     }
+  .countdown{
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
 
 }
   </style>
@@ -311,6 +357,20 @@ Diabètes et Ramadan</h1>
       <a class="btn" href="mailto:diabete.et.ramadan@gmail.com" style="width:100%; margin-top:15px; background:var(--sadiab-dark)">Contacter l'organisation</a>
     </aside>
   </main>
+    <div class="logo-bar">
+    <div class="logo-track" id="logoTrack">
+      <!-- Logos -->
+      <img src="./img/Logos/logo1.jpeg">
+      <img src="./img/Logos/logo2.jpeg">
+      <img src="./img/Logos/logo3.jpeg">
+      <img src="./img/Logos/logo4.jpeg">
+      <img src="./img/Logos/logo5.jpeg">
+      <img src="./img/Logos/logo6.jpeg">
+      <img src="./img/Logos/logo7.jpeg">
+      <img src="./img/Logos/logo8.jpeg">
+  
+    </div>
+  </div>
 
   <footer>
     <p>Organisé par la <strong>Société Algérienne de Diabétologie (SADIAB)</strong> en collaboration avec l'Association des Diabétiques de la wilaya de Ghardaïa<strong>ADWG</strong></p>
@@ -380,11 +440,17 @@ Diabètes et Ramadan</h1>
     requestAnimationFrame(animate);
   }
   animate();
+  // Duplicate logos for seamless infinite effect
+const track = document.getElementById("logoTrack");
+track.innerHTML += track.innerHTML;
 </script>
+</script>
+  
 
 </body>
 
 </html>
+
 
 
 
